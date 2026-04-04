@@ -1,0 +1,863 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PaperVault | Second Year</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0a0a14;
+        --paper: #f7f5f0;
+        --accent: #e85d26;
+        --accent2: #3b5bdb;
+        --muted: #8b8580;
+        --card-bg: #ffffff;
+        --border: rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "DM Sans", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 999;
+        opacity: 0.4;
+      }
+
+      /* ─── HEADER ─── */
+      header {
+        background: var(--ink);
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header-bg-lines {
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 59px,
+            rgba(255, 255, 255, 0.04) 60px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 59px,
+            rgba(255, 255, 255, 0.04) 60px
+          );
+      }
+
+      .header-orb {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(232, 93, 38, 0.16) 0%,
+          transparent 70%
+        );
+        top: -200px;
+        right: -100px;
+        pointer-events: none;
+      }
+
+      .header-orb2 {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(59, 91, 219, 0.14) 0%,
+          transparent 70%
+        );
+        bottom: -150px;
+        left: 60px;
+        pointer-events: none;
+      }
+
+      .header-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 70px 40px 60px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        transition: color 0.2s;
+      }
+      .back-link:hover {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(232, 93, 38, 0.15);
+        border: 1px solid rgba(232, 93, 38, 0.3);
+        color: #f0854a;
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 22px;
+        letter-spacing: 0.02em;
+      }
+
+      .header-badge span {
+        width: 7px;
+        height: 7px;
+        background: #e85d26;
+        border-radius: 50%;
+        display: inline-block;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      header h1 {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(36px, 5.5vw, 64px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        margin-bottom: 14px;
+      }
+
+      header h1 em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      header p {
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 300;
+        max-width: 500px;
+      }
+
+      .header-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 40px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .stat-num {
+        font-family: "Syne", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: white;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 300;
+      }
+
+      /* ─── SEMESTER TABS ─── */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 40px 80px;
+      }
+
+      .sem-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+      }
+
+      .sem-tab {
+        padding: 10px 24px;
+        border-radius: 100px;
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1.5px solid var(--border);
+        background: var(--card-bg);
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+
+      .sem-tab:hover {
+        border-color: rgba(232, 93, 38, 0.3);
+        color: var(--ink);
+      }
+
+      .sem-tab.active {
+        background: var(--ink);
+        color: white;
+        border-color: var(--ink);
+      }
+
+      /* ─── SECTION HEADER ─── */
+      .section-label {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+
+      .section-label h2 {
+        font-family: "Syne", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .section-label .sem-badge {
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .badge-3 {
+        background: #eaf0ff;
+        color: #2d4fbb;
+      }
+      .badge-4 {
+        background: #fff0ea;
+        color: #c94a13;
+      }
+
+      .section-divider {
+        height: 1.5px;
+        background: var(--border);
+        margin-bottom: 24px;
+      }
+
+      /* ─── SUBJECT CARDS ─── */
+      .subject-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+        margin-bottom: 50px;
+      }
+
+      .subject-card {
+        background: var(--card-bg);
+        border-radius: 18px;
+        border: 1.5px solid var(--border);
+        padding: 28px 24px;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          border-color 0.2s;
+        cursor: pointer;
+      }
+
+      .subject-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--card-accent, #e85d26);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease;
+      }
+
+      .subject-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+        border-color: transparent;
+      }
+
+      .subject-card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .card-icon {
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      .card-sem-pill {
+        padding: 3px 10px;
+        border-radius: 100px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .pill-3 {
+        background: #eaf0ff;
+        color: #2d4fbb;
+      }
+      .pill-4 {
+        background: #fff0ea;
+        color: #c94a13;
+      }
+
+      .subject-card h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: var(--ink);
+        line-height: 1.3;
+      }
+
+      .subject-card p {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 18px;
+        line-height: 1.5;
+      }
+
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .papers-count {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .view-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "Syne", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--card-accent, #e85d26);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: gap 0.2s;
+      }
+
+      .subject-card:hover .view-btn {
+        gap: 10px;
+      }
+
+      /* ─── CONTRIBUTE CTA ─── */
+      .contribute-box {
+        background: var(--ink);
+        color: white;
+        padding: 50px 48px;
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contribute-box::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(59, 91, 219, 0.25) 0%,
+          transparent 70%
+        );
+        top: -150px;
+        right: -100px;
+        pointer-events: none;
+      }
+
+      .contribute-box::after {
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(232, 93, 38, 0.18) 0%,
+          transparent 70%
+        );
+        bottom: -100px;
+        left: 20%;
+        pointer-events: none;
+      }
+
+      .contribute-text {
+        position: relative;
+        z-index: 1;
+      }
+
+      .contribute-text h2 {
+        font-family: "Syne", sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        letter-spacing: -0.02em;
+      }
+
+      .contribute-text p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 300;
+        max-width: 420px;
+      }
+
+      .contribute-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+      }
+
+      .tg-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        background: #2aabee;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+        white-space: nowrap;
+      }
+
+      .tg-btn:hover {
+        background: #1a9bde;
+        transform: scale(1.04);
+      }
+      .tg-note {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* ─── ANIMATIONS ─── */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.5s forwards;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .delay-1 {
+        animation-delay: 0.1s;
+      }
+      .delay-2 {
+        animation-delay: 0.2s;
+      }
+      .delay-3 {
+        animation-delay: 0.3s;
+      }
+
+      /* hidden by tab filter */
+      .subject-section {
+        transition: opacity 0.2s;
+      }
+      .subject-section.hidden {
+        display: none;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        background: var(--ink);
+        color: rgba(255, 255, 255, 0.35);
+        text-align: center;
+        padding: 28px 20px;
+        font-size: 13px;
+      }
+
+      footer strong {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      @media (max-width: 700px) {
+        .header-inner {
+          padding: 50px 24px 44px;
+        }
+        .container {
+          padding: 40px 20px 60px;
+        }
+        .header-stats {
+          gap: 24px;
+        }
+        .contribute-box {
+          flex-direction: column;
+          padding: 36px 28px;
+          text-align: center;
+        }
+        .contribute-text p {
+          margin: 0 auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-bg-lines"></div>
+      <div class="header-orb"></div>
+      <div class="header-orb2"></div>
+      <div class="header-inner">
+        <a href="../index.html" class="back-link fade-up"
+          >← Back to Paper Hub</a
+        >
+        <div class="header-badge fade-up delay-1">
+          <span></span> PaperVault · Second Year
+        </div>
+        <h1 class="fade-up delay-1">Second Year<br /><em>All Subjects</em></h1>
+        <p class="fade-up delay-2">
+          Browse sessional papers and resources for all 3rd & 4th semester
+          subjects in one place.
+        </p>
+        <div class="header-stats fade-up delay-3">
+          <div class="stat">
+            <span class="stat-num">12</span>
+            <span class="stat-label">Subjects</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">2</span>
+            <span class="stat-label">Semesters</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">2026</span>
+            <span class="stat-label">Latest Year</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Semester Tabs -->
+      <div class="sem-tabs">
+        <button class="sem-tab active" onclick="filterSem('all', this)">
+          All Subjects
+        </button>
+        <button class="sem-tab" onclick="filterSem('sem3', this)">
+          3rd Semester
+        </button>
+        <button class="sem-tab" onclick="filterSem('sem4', this)">
+          4th Semester
+        </button>
+      </div>
+
+      <!-- ── 3RD SEMESTER ── -->
+      <div class="subject-section" id="sem3">
+        <div class="section-label">
+          <h2>3rd Semester</h2>
+          <span class="sem-badge badge-3">SEM III</span>
+        </div>
+        <div class="section-divider"></div>
+
+        <div class="subject-grid">
+          <div class="subject-card" style="--card-accent: #7c3aed">
+            <div class="card-top">
+              <span class="card-icon">📐</span>
+              <span class="card-sem-pill pill-3">3rd Sem</span>
+            </div>
+            <h3>Mathematics – IV</h3>
+            <p>Numerical methods, transforms, complex analysis</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #7c3aed">View Papers →</span>
+            </div>
+          </div>
+          <div class="subject-card" style="--card-accent: #6366f1">
+            <div class="card-top">
+              <span class="card-icon">🔣</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Discrete Structures & Theory of Logic</h3>
+            <p>Sets, relations, graphs, propositional logic, combinatorics</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #6366f1">View Papers →</span>
+            </div>
+          </div>
+
+          <div class="subject-card" style="--card-accent: #0891b2">
+            <div class="card-top">
+              <span class="card-icon">🏗️</span>
+              <span class="card-sem-pill pill-3">3rd Sem</span>
+            </div>
+            <h3>Computer Organization & Architecture</h3>
+            <p>CPU design, memory hierarchy, instruction sets, pipelining</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #0891b2">View Papers →</span>
+            </div>
+          </div>
+
+          <div class="subject-card" style="--card-accent: #be185d">
+            <div class="card-top">
+              <span class="card-icon">💬</span>
+              <span class="card-sem-pill pill-3">3rd Sem</span>
+            </div>
+            <h3>Technical Communication</h3>
+            <p>Report writing, presentations, technical writing skills</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #be185d">View Papers →</span>
+            </div>
+          </div>
+
+          <div class="subject-card" style="--card-accent: #e85d26">
+            <div class="card-top">
+              <span class="card-icon">🗂️</span>
+              <span class="card-sem-pill pill-3">3rd Sem</span>
+            </div>
+            <h3>Data Structures</h3>
+            <p>Arrays, linked lists, trees, graphs, sorting & searching</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #e85d26">View Papers →</span>
+            </div>
+          </div>
+          <div class="subject-card" style="--card-accent: #2563eb">
+            <div class="card-top">
+              <span class="card-icon">🐍</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Python Programming</h3>
+            <p>Syntax, OOP in Python, file handling, libraries</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #2563eb">View Papers →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 4TH SEMESTER ── -->
+      <div class="subject-section" id="sem4">
+        <div class="section-label">
+          <h2>4th Semester</h2>
+          <span class="sem-badge badge-4">SEM IV</span>
+        </div>
+        <div class="section-divider"></div>
+
+        <div class="subject-grid">
+          <a
+            href="digital.html"
+            class="subject-card"
+            style="--card-accent: #059669"
+          >
+            <div class="card-top">
+              <span class="card-icon">⚡</span>
+              <span class="card-sem-pill pill-3">3rd Sem</span>
+            </div>
+            <h3>Digital Electronics</h3>
+            <p>Logic gates, K-maps, adders, flip-flops, counters</p>
+            <div class="card-footer">
+              <span class="papers-count">1 paper available</span>
+              <span class="view-btn" style="color: #059669">View Papers →</span>
+            </div>
+          </a>
+
+          <a
+            href="uhv.html"
+            class="subject-card"
+            style="--card-accent: #f59e0b"
+          >
+            <div class="card-top">
+              <span class="card-icon">🌿</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Universal Human Values (UHV)</h3>
+            <p>Happiness, harmony in relationships, society & existence</p>
+            <div class="card-footer">
+              <span class="papers-count">2 papers available</span>
+              <span class="view-btn" style="color: #f59e0b">View Papers →</span>
+            </div>
+          </a>
+
+          <div class="subject-card" style="--card-accent: #dc2626">
+            <div class="card-top">
+              <span class="card-icon">🔐</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Cyber Security</h3>
+            <p>
+              Threats, cryptography, network security, ethical hacking basics
+            </p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #dc2626">View Papers →</span>
+            </div>
+          </div>
+
+          <div class="subject-card" style="--card-accent: #0f766e">
+            <div class="card-top">
+              <span class="card-icon">🖥️</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Operating System</h3>
+            <p>Processes, scheduling, memory management, deadlocks</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #0f766e">View Papers →</span>
+            </div>
+          </div>
+
+          <div class="subject-card" style="--card-accent: #7c3aed">
+            <div class="card-top">
+              <span class="card-icon">🤖</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Theory of Automata & Formal Languages</h3>
+            <p>DFA, NFA, CFG, Turing machines, decidability</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #7c3aed">View Papers →</span>
+            </div>
+          </div>
+
+          <a
+            href="java.html"
+            class="subject-card"
+            style="--card-accent: #f59e0b"
+          >
+            <div class="card-top">
+              <span class="card-icon">☕</span>
+              <span class="card-sem-pill pill-4">4th Sem</span>
+            </div>
+            <h3>Object Oriented Programming with Java</h3>
+            <p>Classes, inheritance, polymorphism, interfaces, collections</p>
+            <div class="card-footer">
+              <span class="papers-count">Coming soon</span>
+              <span class="view-btn" style="color: #b45309">View Papers →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contribute CTA -->
+      <div class="contribute-box">
+        <div class="contribute-text">
+          <h2>Have a Paper? Share It 🎁</h2>
+          <p>
+            Help your juniors by sending the latest sessional papers to our
+            Telegram channel. Every contribution counts.
+          </p>
+        </div>
+        <div class="contribute-actions">
+          <a href="#" class="tg-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path
+                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"
+              />
+            </svg>
+            Join Telegram Channel
+          </a>
+          <span class="tg-note">500+ students already joined</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © 2026 PaperVault | Second Year &nbsp;·&nbsp; Built with ❤️ by
+      <strong>Roshan</strong>
+    </footer>
+
+    <script>
+      function filterSem(sem, btn) {
+        // update tab active state
+        document
+          .querySelectorAll(".sem-tab")
+          .forEach((t) => t.classList.remove("active"));
+        btn.classList.add("active");
+
+        const sections = document.querySelectorAll(".subject-section");
+        sections.forEach((sec) => {
+          if (sem === "all") {
+            sec.classList.remove("hidden");
+          } else {
+            sec.id === sem
+              ? sec.classList.remove("hidden")
+              : sec.classList.add("hidden");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
